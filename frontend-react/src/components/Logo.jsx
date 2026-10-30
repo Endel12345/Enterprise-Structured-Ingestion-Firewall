@@ -7,7 +7,7 @@ export default function Logo({ to = "/" }) {
       <span className="logo-mark">
         <Sparkles size={16} strokeWidth={2.2} />
       </span>
-      <span className="logo-text">AI Assistant</span>
+      <span className="logo-text">Indigo.ai</span>
     </Link>
   );
 }
