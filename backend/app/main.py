@@ -28,26 +28,8 @@ app.add_middleware(CORSMiddleware, allow_origins=ALLOWED_ORIGINS, allow_credenti
 
 @app.get("/")
 def root():
-    """Lists every endpoint, so opening the deployed URL shows something useful."""
-    return {
-        "name": app.title,
-        "version": app.version,
-        "docs": "/docs",
-        "endpoints": {
-            "GET /": "This list",
-            "GET /health": "Server, database and configuration status",
-            "GET /docs": "Interactive API documentation",
-            "POST /api/analyze": "Send a message; returns intent analysis and an answer",
-            "POST /api/analyze/stream": "Same, but streams the answer token by token (NDJSON)",
-            "GET /api/conversations": "Recent conversations",
-            "GET /api/conversations/{session_id}/messages": "All messages in one conversation",
-            "PATCH /api/conversations/{session_id}": "Rename a conversation",
-            "POST /api/conversations/{session_id}/archive": "Move a conversation to the archive",
-            "POST /api/conversations/{session_id}/restore": "Bring an archived conversation back",
-            "GET /api/conversations/archived": "Archived conversations (deleted after the retention period)",
-            "DELETE /api/conversations/{session_id}": "Delete a conversation permanently",
-        },
-    }
+    """Public landing response: confirms the service is up without listing the API."""
+    return {"service": app.title, "status": "running"}
 
 @app.get("/health")
 def health_check(response: Response):

@@ -137,7 +137,7 @@ The database is in `.gitignore`, so your chats are never pushed to GitHub.
 
 | Method | Path | What it does |
 |---|---|---|
-| `GET` | `/` | Lists every endpoint |
+| `GET` | `/` | Simple status: `{"service": "Indigo.ai API", "status": "running"}` |
 | `GET` | `/health` | Server status: `database_ok`, `groq_api_key_configured`, `model`. Never calls the LLM or shows secrets. |
 | `GET` | `/docs` | Interactive documentation: try every endpoint in the browser |
 | `POST` | `/api/analyze` | Send `{ "message": "...", "session_id": "optional" }`; returns intent, risk, priority, the Markdown answer and `session_id` |
@@ -222,7 +222,7 @@ If you change `VITE_API_URL` later, **redeploy** on Vercel: Vite bakes it into t
 
 | Check | Expected |
 |---|---|
-| `https://<render-url>/` | JSON list of endpoints |
+| `https://<render-url>/` | `{"service": "Indigo.ai API", "status": "running"}` |
 | `https://<render-url>/health` | `"status": "ok"`, `"database_ok": true`, `"groq_api_key_configured": true` |
 | `https://<render-url>/docs` | Interactive API page |
 | `https://<render-url>/api/conversations` | `{"items": [...]}` |

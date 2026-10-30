@@ -41,10 +41,10 @@ def client(tmp_path, monkeypatch):
         yield test_client
 
 
-def test_root_lists_endpoints(client):
+def test_root_does_not_expose_the_api(client):
     body = client.get("/").json()
-    assert body["docs"] == "/docs"
-    assert "POST /api/analyze" in body["endpoints"]
+    assert body == {"service": "Indigo.ai API", "status": "running"}
+    assert "/api/" not in str(body)
 
 
 def test_health_reports_status_without_secrets(client):
