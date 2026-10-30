@@ -172,7 +172,8 @@ Deploy the **backend first**, because the frontend needs its URL.
 | Render | `GROQ_MODEL` | `openai/gpt-oss-120b` | Yes (default is the same) |
 | Render | `ALLOWED_ORIGINS` | Your Vercel URL, e.g. `https://your-app.vercel.app` (no trailing slash; comma-separate several) | Yes |
 | Render | `PYTHON_VERSION` | `3.12.10` | Yes (set automatically by `render.yaml`) |
-| Render | `SQLITE_PATH` | `/var/data/chat.db`, only with a paid persistent disk | No |
+| Render | `DATABASE_URL` | Your Neon connection string (`postgresql://…?sslmode=require`) so chats are kept | Yes (recommended) |
+| Render | `SQLITE_PATH` | `/var/data/chat.db`, only with a paid persistent disk and no `DATABASE_URL` | No |
 | Vercel | `VITE_API_URL` | Your Render URL, e.g. `https://ai-assistant-backend.onrender.com` (no trailing slash) | Yes |
 
 Never put real keys in `.env.example`, the code or the README. Only paste them into the Render/Vercel dashboards.
@@ -231,7 +232,7 @@ If you change `VITE_API_URL` later, **redeploy** on Vercel: Vite bakes it into t
 
 ### Things to know about the free plans
 
-- **Chat history resets on Render's free plan.** Its disk is wiped on every deploy and restart. To keep history, use a paid plan with a persistent disk mounted at `/var/data` (see the commented lines in `render.yaml`) and set `SQLITE_PATH=/var/data/chat.db`.
+- **Keep chats with a free Neon database.** Without `DATABASE_URL`, chats are saved in a SQLite file that Render's free plan wipes on every deploy and restart. Create a free PostgreSQL database at [neon.tech](https://neon.tech), copy its connection string and set it as `DATABASE_URL` on Render. Tables are created automatically on first start; you can see them in the Neon console under **Tables**.
 - **The free backend sleeps** after about 15 minutes without traffic. The first request afterwards can take up to a minute; the app shows "Backend offline" until it wakes, then try again.
 - **The API is public.** There are no user accounts: anyone with the URL can read every saved conversation and use your Groq quota. Fine for a workshop demo; add authentication and rate limiting before real users.
 

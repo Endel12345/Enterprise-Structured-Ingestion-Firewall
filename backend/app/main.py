@@ -8,7 +8,7 @@ from pydantic import ValidationError
 from app.config import ALLOWED_ORIGINS, ARCHIVE_RETENTION_DAYS, GROQ_API_KEY, GROQ_MODEL
 from app.schemas.ingestion import IngestionRequest, RenameRequest
 from app.schemas.assistant import AssistantResult, TokenUsage
-from app.services.database_service import (initialize_database, check_database, ensure_conversation, add_chat_message, get_chat_history, list_conversations, get_conversation_messages, rename_conversation, delete_conversation, archive_conversation, restore_conversation, list_archived_conversations, purge_expired_archives, get_archive_status)
+from app.services.database_service import (initialize_database, check_database, database_kind, ensure_conversation, add_chat_message, get_chat_history, list_conversations, get_conversation_messages, rename_conversation, delete_conversation, archive_conversation, restore_conversation, list_archived_conversations, purge_expired_archives, get_archive_status)
 from app.services.llm_service import analyze_message
 from app.services.response_service import generate_response, stream_response
 from app.utils.token_counter import estimate_tokens
@@ -58,7 +58,7 @@ def health_check(response: Response):
     return {
         "status": "ok" if database_ok else "error",
         "message": "Indigo.ai API is running",
-        "database": "sqlite",
+        "database": database_kind(),
         "database_ok": database_ok,
         "groq_api_key_configured": bool(GROQ_API_KEY),
         "model": GROQ_MODEL,

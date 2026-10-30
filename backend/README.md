@@ -35,7 +35,8 @@ ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
 | `GROQ_API_KEY` | Yes | Your Groq key |
 | `GROQ_MODEL` | No | Groq model; defaults to `openai/gpt-oss-120b` |
 | `ALLOWED_ORIGINS` | No locally, **yes on Render** | Comma-separated websites allowed to call the API from a browser (CORS). Defaults to the Vite dev server. On Render, set it to your Vercel URL. |
-| `SQLITE_PATH` | No | Where the database file goes. Relative paths start from `backend/`. |
+| `DATABASE_URL` | No locally, **recommended on Render** | PostgreSQL connection string (e.g. Neon). When set, chats are stored in PostgreSQL; when empty, in the SQLite file below. |
+| `SQLITE_PATH` | No | Where the SQLite file goes when `DATABASE_URL` is empty. Relative paths start from `backend/`. |
 
 - No quotes and no spaces around `=`.
 - Save it as `.env`, not `.env.txt`.
@@ -106,9 +107,12 @@ Counts roughly how many tokens the message is, using `tiktoken`. It's an estimat
 
 It inherits from `IngestionResult`, so we don't repeat the fields.
 
-### 6. `app/services/database_service.py`: Week 3, chat history in SQLite
+### 6. `app/services/database_service.py`: Week 3, chat history (PostgreSQL or SQLite)
 
-Uses Python's built-in `sqlite3` module, so there is nothing extra to install and no database server to run. Two tables (see `sql/schema.sql`):
+- **`DATABASE_URL` set** (production, e.g. a free Neon database): PostgreSQL via `psycopg`, with a small connection pool. Prepared statements are turned off because Neon's pooled endpoint doesn't support them, and connections are checked before use because Neon suspends idle databases.
+- **`DATABASE_URL` empty** (local development, tests): Python's built-in `sqlite3` and a file, with nothing to install.
+
+The SQL is written once with `?` placeholders and converted to `%s` for PostgreSQL. `/health` reports which one is in use (`"database": "postgres"` or `"sqlite"`). Tests always use SQLite (see `tests/conftest.py`), so they never touch your real database. Two tables (see `sql/schema.sql`):
 
 | Table | Columns |
 |---|---|

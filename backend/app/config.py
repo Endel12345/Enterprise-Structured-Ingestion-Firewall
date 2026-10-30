@@ -10,6 +10,10 @@ load_dotenv()
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "").strip()
 GROQ_MODEL = os.getenv("GROQ_MODEL", "").strip() or "openai/gpt-oss-120b"
+# PostgreSQL connection string (e.g. Neon). When set, chats are stored there;
+# when empty, the SQLite file below is used (local development).
+DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
+
 # Relative paths are resolved from the backend folder, not the current directory.
 SQLITE_PATH = str(BACKEND_DIR / (os.getenv("SQLITE_PATH", "").strip() or "data/chat.db"))
 
