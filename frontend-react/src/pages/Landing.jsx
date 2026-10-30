@@ -181,14 +181,17 @@ export default function Landing() {
         <section id="top" className="hero container">
           <div className="orb orb-lg hero-orb" aria-hidden="true" />
           <span className="pill">
-            <Sparkles size={14} /> Meet Indigo.ai <span className="pill-sep" /> your intent-aware AI assistant
+            <Sparkles size={14} /> Your intent-aware AI assistant
           </span>
-          <h1>
-            Ask Anything. <span className="grad-text">Get Clear Answers.</span>
+          <h1 className="hero-brand">
+            Indigo<span className="hero-brand-ai">.ai</span>
           </h1>
+          <p className="hero-tagline">
+            Ask Anything. <span className="grad-text">Get Clear Answers.</span>
+          </p>
           <p className="hero-sub">
-            A personal AI workspace for customer-support questions. Every message is understood,
-            validated and answered in simple, organized conversations.
+            <strong>Indigo.ai</strong> is your personal AI workspace for everyday support questions. Every
+            message is understood, checked and answered in simple, organized conversations.
           </p>
           <div className="hero-actions">
             <Link to="/chat" className="btn btn-primary">
@@ -217,7 +220,7 @@ export default function Landing() {
         </section>
 
         <section id="features" className="section container">
-          <span className="eyebrow-pill">What it does</span>
+          <span className="eyebrow-pill">Why Indigo.ai</span>
           <h2>Designed for focus and clarity</h2>
           <p className="section-sub">
             No noise, just the pieces you need: understand the question, answer it well, and keep
@@ -283,8 +286,10 @@ export default function Landing() {
             <span className="cta-icon">
               <MessagesSquare size={22} />
             </span>
-            <h2>Ready to Start a Conversation?</h2>
-            <p>Get answers, explore ideas, and keep every conversation organized with your personal assistant.</p>
+            <h2>
+              Ready to talk to <span className="grad-text">Indigo.ai</span>?
+            </h2>
+            <p>Get answers, explore ideas, and keep every conversation organized in one place.</p>
             <div className="hero-actions">
               <Link to="/chat" className="btn btn-primary">
                 Get Started <ArrowRight size={16} />

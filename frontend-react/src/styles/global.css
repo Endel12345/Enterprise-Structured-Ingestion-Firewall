@@ -189,6 +189,10 @@ button:disabled {
   box-shadow: 0 4px 12px var(--primary-glow);
 }
 
+.logo-accent {
+  color: var(--primary);
+}
+
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
