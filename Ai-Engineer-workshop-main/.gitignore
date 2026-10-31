@@ -1,4 +1,8 @@
-# Secrets
+
+# Secrets: any .env file, but keep the .env.example templates
+.env
+.env.*
+!.env.example
 backend/.env
 
 # Python
@@ -6,6 +10,11 @@ backend/.venv/
 __pycache__/
 *.py[cod]
 .pytest_cache/
+
+# SQLite chat history (local data, never commit)
+*.db
+*.sqlite
+*.sqlite3
 
 # Editors
 .vscode/
