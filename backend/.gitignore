@@ -1,0 +1,15 @@
+# Secrets: keep .env.example
+.env
+.env.*
+!.env.example
+
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+
+# SQLite chat history
+data/
+*.db
+*.db-wal
+*.db-shm

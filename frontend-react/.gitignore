@@ -1,0 +1,9 @@
+node_modules/
+dist/
+
+# Secrets / local settings: keep .env.example
+.env
+.env.*
+!.env.example
+
+.vercel/
